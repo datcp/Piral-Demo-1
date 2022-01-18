@@ -1,27 +1,47 @@
+import { PiletApi, PiralStoreDataEvent } from "Piral-Demo";
 import * as React from "react";
 
 export interface InputProps{
     setData: any;
 }
 
-const Input: React.FC<InputProps> = ({setData}) => {
-    const [value, setValue] = React.useState('');
+export function Count(piral: PiletApi) {
 
-    const inpChange = (e) => {
-        setValue(e.target.value)
+    return () => {
+        const [count, setCount] = React.useState(() => piral.getData('count'));
+        React.useEffect(() => {
+            const listener = (e: PiralStoreDataEvent) => {
+                if(e.name === 'count') {
+                    setCount(e.value);
+                }
+                piral.on('store-data', listener);
+            }
+        }, []);
+
+        return <div>Count from React: {count}</div>
     }
-
-    const onClick = () => {
-        setData(value);
-        setValue('');
-    }
-
-    return (
-        <div>
-            <input type="text" value={value} onChange={inpChange}/>
-            <button onClick={onClick}>Ok</button>
-        </div>
-    )
 }
 
-export default Input;
+export function Input(piral: PiletApi) {
+    return () => {
+
+        const [abc, setAbc] = React.useState(0);
+        const [textVal, setTextVal] = React.useState('');
+        const onChange = () => {
+            piral.setData('count', textVal);
+            setTextVal('');
+        };
+
+        return <div className="tile rows-4 cols-4">
+                    <div className="teaser">
+                        {/* <button onClick={() => piral.setData('count', piral.getData('count') + 1)}>Increase</button>
+                        <button onClick={() => piral.setData('count', piral.getData('count') - 1)}>Decrease</button> */}
+                        <h3>Todo List</h3>
+                        <input type="text" value={textVal} onChange={(e) => setTextVal(e.target.value)}/>
+                        <button className="btn" onClick={onChange}>Enter</button>
+                        {/* <button onClick={() => setAbc(abc+1)}>{abc}</button> */}
+                    </div>
+            </div>
+        
+    }
+}

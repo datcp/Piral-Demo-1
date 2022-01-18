@@ -13,8 +13,8 @@ export function setup(app: PiletApi) {
 
   app.registerTile(() => <Link to="/sample">Sample Pilet</Link>,
   {
-    initialColumns: 2,
-    initialRows: 2,
+    initialColumns: 3,
+    initialRows: 3,
   })
 
   app.registerPage("/sample", connect(( {data} ) => {
@@ -51,8 +51,8 @@ export function setup(app: PiletApi) {
     }, []);
 
     return (<Page data={data} Foo={Foo} value={value}/>)}), {
-    initialColumns: 4,
-    initialRows: 4
+    initialColumns: 3,
+    initialRows: 3
   });
   
   app.registerPage('/output',() => {
@@ -80,6 +80,20 @@ export function setup(app: PiletApi) {
           <h4>Count {count}</h4>
           <button className='btn' onClick={() => setCount(count + 1)}>Increase</button>
           <button className='btn' onClick={() => setCount(count - 1)}>Decrease</button>
+        </div>
+      </div>
+    )
+  },{
+    initialColumns: 3,
+    initialRows: 3
+  })
+
+  app.registerTile('unRegister', () => {
+    return(
+      <div className="tile rows-3 cols-3">
+        <div className="teaser">
+          <h6>Click to unregister the Pilet</h6>
+          <button className='btn' onClick={() => app.unregisterTile('unRegister')}>Unregister</button>
         </div>
       </div>
     )
