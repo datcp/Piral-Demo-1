@@ -3,7 +3,7 @@ import * as React from "react";
 
 export interface PageProps {
     data: any;
-    value: any;
+    value?: any;
     Foo: React.ComponentType
 }
 

@@ -6,7 +6,8 @@ export interface outputProps {
 
 const Output: React.FC<outputProps> = ({output}) => {
     return(
-        <div>
+        <div >
+            {output.length == 0 && <div>Nothing to show</div>}
             {output.length > 0 && output.map((val: any) => <li>{val}</li>)}
         </div>
     )

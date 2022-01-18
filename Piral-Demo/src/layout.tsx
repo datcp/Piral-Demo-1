@@ -77,7 +77,7 @@ export const layout: Partial<ComponentsState> = {
       <h1>Hello, world!</h1>
       <p>Welcome to your new microfrontend app shell, built with:</p>
       <div className="tiles">
-        {defaultTiles}
+        {/* {defaultTiles} */}
         {children}
       </div>
     </div>
